@@ -172,7 +172,7 @@ input.onchange = function(e) {
 >    [参考](https://www.cnblogs.com/st-leslie/p/5907556.html)  
 ![js-eventflow](https://raw.githubusercontent.com/PaulGuo5/Webnotes/master/img/js-eventflow.png)  
 ### 1. 一个完整的JS事件流是从window开始，最ndow的一个后回到wi过程。
-### 2. 事件流被分为三个阶段(1~5)捕获过程、(5~6)目标过程、(6~10)冒泡过程。
+### 2. 事件流被分为三个阶段(1-5)捕获过程、(5-6)目标过程、(6-10)冒泡过程。
 ### 3. 在冒泡过程中6比7早触发，也就解释了上面那题，为什么btn1,会比content先触发。  
 + 事件流分为两种，捕获事件流和冒泡事件流。
 + 捕获事件流从根节点开始执行，一直往子节点查找执行，直到查找执行到目标节点。
