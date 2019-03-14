@@ -178,3 +178,31 @@ input.onchange = function(e) {
 + 捕获事件流从根节点开始执行，一直往子节点查找执行，直到查找执行到目标节点。
 + 冒泡事件流从目标节点开始执行，一直往父节点冒泡查找执行，直到查到到根节点。
 + DOM事件流分为三个阶段，一个是捕获节点，一个是处于目标节点阶段，一个是冒泡阶段。
+
+- Example：  
+```bash
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width:200px;height:200px;background:lightblue" id="content">
+        <div style="width:100px;height:100px;background: lightyellow;" id="btn1">
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var content=document.getElementById("content");
+    var btn1=document.getElementById('btn1');
+    btn1.onclick=function(){
+        alert("btn1");
+    };
+    content.onclick=function(){
+        alert("content");
+    }
+</script>
+</html>
+```
+- btn1比content先触发
