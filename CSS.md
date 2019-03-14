@@ -24,7 +24,7 @@
  *设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。*  
  
 3. Flex容器  
-![flex-container](https://raw.githubusercontent.com/PaulGuo5/WebNote/master/img/flex-item.png)  
+![flex-container](https://raw.githubusercontent.com/PaulGuo5/Webnotes/master/img/flex-item.png)  
 
 4.容器的属性  
 4.1 **flex-direction**属性决定主轴的方向（即项目的排列方向）。  
@@ -33,7 +33,7 @@
   flex-direction: row(default) | row-reverse | column | column-reverse;
 }
 ```
-![flex-direction](https://raw.githubusercontent.com/PaulGuo5/WebNote/master/img/flex-direction.png)  
+![flex-direction](https://raw.githubusercontent.com/PaulGuo5/Webnotes/master/img/flex-direction.png)  
 
 4.2 **flex-wrap**属性:如果一条轴线排不下，如何换行。  
 ```bash
@@ -41,7 +41,7 @@
   flex-wrap: nowrap | wrap | wrap-reverse;
 }
 ```  
-![flex-map](https://raw.githubusercontent.com/PaulGuo5/WebNote/master/img/flex-wrap.png)  
+![flex-wrap](https://raw.githubusercontent.com/PaulGuo5/Webnotes/master/img/flex-wrap.png)  
 
 4.3 **flex-flow**属性:flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
 ```bash
