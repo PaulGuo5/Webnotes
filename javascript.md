@@ -147,12 +147,18 @@ input.onchange = function(e) {
 - 作用域同样是限定在文档源级别的，不仅如此，它还被限制在标签页中，不同标签页的同一个页面拥有各自的sessionStorage，数据不能共享。如果是一个页面里有两个iframe元素，它们是共享sessionStorage的。  
 ### 4. Web Storage API
 - Storage对象提供了操作key/value对（下面我们称之为item）的方法，key和value都是string类型的值（包括空字符串），如果存的不是字符串，会在存储前被转换成字符串。
-### 4.1 **length**返回Storage对象内item的数量，这是一个只读属性。
-### 4.2 **key(index)**返回第n项的key。当index的值超出了length，返回null。
-### 4.3 **getItem(key)**返回对应key值的value，如果没有，返回null。
-### 4.4 **setItem(key, value)**方法首先检查要设置的item是否存在，如果不存在，在Storage里加入该item；如果存在，更新这个item的value。如果无法存入新item，该方法会抛出QuotaExceedeErrorDOMException异常，不改变Storage内的任何内容（表示Storage已经存满了，Storage目前推荐的存储容量上限为5M）。
-### 4.5 **removeItem(key)**方法会删除指定的item，如果不存在指定的item，什么都不做。
-### 4.6 **clear()**方法会清空Storage里的所有item，如果Storage本来就是空的，什么都不做。  
+### 4.1 length
+- 返回Storage对象内item的数量，这是一个只读属性。
+### 4.2 key(index)
+- 返回第n项的key。当index的值超出了length，返回null。
+### 4.3 getItem(key)
+- 返回对应key值的value，如果没有，返回null。
+### 4.4 setItem(key, value)
+- 方法首先检查要设置的item是否存在，如果不存在，在Storage里加入该item；如果存在，更新这个item的value。如果无法存入新item，该方法会抛出QuotaExceedeErrorDOMException异常，不改变Storage内的任何内容（表示Storage已经存满了，Storage目前推荐的存储容量上限为5M）。
+### 4.5 removeItem(key)
+- 方法会删除指定的item，如果不存在指定的item，什么都不做。
+### 4.6 clear()
+- 方法会清空Storage里的所有item，如果Storage本来就是空的，什么都不做。  
 ### 5. Web Storage 存储事件
 - 当localStorage或者sessionStorage的数据发生变化的时候，浏览器都会在其他对该数据可见的窗口对象上触发storage事件（本窗口除外）。
 -重要：只有当存储数据真正发生变化时才会触发存储事件，比如给一个item重新设置一个和原来一样的value，或者是删除一个不存在的item是不会触发存储事件的。
