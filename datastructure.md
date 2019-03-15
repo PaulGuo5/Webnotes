@@ -4,7 +4,7 @@
 ## 递归
 >    [递归：如何用三行代码找到 “最终推荐人”？(王争)](https://www.jianshu.com/p/32eacb1a8337?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
 
-###􏴧􏲺􏴨􏴩􏰬􏰊􏰮􏴪􏴫􏴧􏲺􏴨􏴩􏰬􏰊􏰮􏴪􏴫 1. 递归需要满足的三个条件
+### 1. 递归需要满足的三个条件
 + 一个问题的解可以分解为几个子问题的解
 + 这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样
 + 存在递归终止条件  
