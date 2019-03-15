@@ -193,7 +193,140 @@ private static void permutation(int array[],int index){
 - [代码1](https://blog.csdn.net/k346k346/article/details/51154786)
 - [代码2](https://blog.csdn.net/napoay/article/details/79879529)
 
+## 二叉树遍历
+>    [参考1](https://blog.csdn.net/My_Jobs/article/details/43451187)
+>    [参考2](https://blog.csdn.net/mingwanganyu/article/details/72033122)
 
+- 前序遍历：根结点 ---> 左子树 ---> 右子树
+- 中序遍历：左子树---> 根结点 ---> 右子树
+- 后序遍历：左子树 ---> 右子树 ---> 根结点
+- 层次遍历：只需按层次遍历即可
+
+### 1. 前序遍历
+- 递归
+```bash
+public void preOrderTraverse1(TreeNode root) {
+		if (root != null) {
+			System.out.print(root.val+"  ");
+			preOrderTraverse1(root.left);
+			preOrderTraverse1(root.right);
+		}
+	}
+```
+- 非递归  
+
++ 对于任意一个结点node，具体步骤如下：
++ a)访问之，并把结点node入栈，当前结点置为左孩子；
++ b)判断结点node是否为空，若为空，则取出栈顶结点并出栈，将右孩子置为当前结点；否则重复a)步直到当前结点为空或者栈为空（可以发现栈中的结点就是为了访问右孩子才存储的）。  
+
+```bash
+public void preOrderTraverse2(TreeNode root) {
+		LinkedList<TreeNode> stack = new LinkedList<>();
+		TreeNode pNode = root;
+		while (pNode != null || !stack.isEmpty()) {
+			if (pNode != null) {
+				System.out.print(pNode.val+"  ");
+				stack.push(pNode);
+				pNode = pNode.left;
+			} else { //pNode == null && !stack.isEmpty()
+				TreeNode node = stack.pop();
+				pNode = node.right;
+			}
+		}
+	}
+```
+
+### 2. 中序遍历
+- 递归
+```bash
+public void inOrderTraverse1(TreeNode root) {
+		if (root != null) {
+			inOrderTraverse1(root.left);
+			System.out.print(root.val+"  ");
+			inOrderTraverse1(root.right);
+		}
+	}
+```
+
+- 非递归
+```bash
+public void inOrderTraverse2(TreeNode root) {
+		LinkedList<TreeNode> stack = new LinkedList<>();
+		TreeNode pNode = root;
+		while (pNode != null || !stack.isEmpty()) {
+			if (pNode != null) {
+				stack.push(pNode);
+				pNode = pNode.left;
+			} else { //pNode == null && !stack.isEmpty()
+				TreeNode node = stack.pop();
+				System.out.print(node.val+"  ");
+				pNode = node.right;
+			}
+		}
+	}
+```
+
+### 3. 后序遍历
+- 递归
+```bash
+public void postOrderTraverse1(TreeNode root) {
+		if (root != null) {
+			postOrderTraverse1(root.left);
+			postOrderTraverse1(root.right);
+			System.out.print(root.val+"  ");
+		}
+	}
+```
+
+- 非递归
+
+### 4. 层次遍历（BFS）广度优先遍历
+- 层次遍历的代码比较简单，只需要一个队列即可，先在队列中加入根结点。之后对于任意一个结点来说，在其出队列的时候，访问之。同时如果左孩子和右孩子有不为空的，入队列。
+- 数据结构：队列
+- 父节点入队，父节点出队列，先左子节点入队，后右子节点入队。递归遍历全部节点即可
+```bash
+public void levelTraverse(TreeNode root) {
+		if (root == null) {
+			return;
+		}
+		LinkedList<TreeNode> queue = new LinkedList<>();
+		queue.offer(root);
+		while (!queue.isEmpty()) {
+			TreeNode node = queue.poll();
+			System.out.print(node.val+"  ");
+			if (node.left != null) {
+				queue.offer(node.left);
+			}
+			if (node.right != null) {
+				queue.offer(node.right);
+			}
+		}
+	}
+```
+
+### 5. 深度优先遍历（DFS）
+- 其实深度遍历就是上面的前序、中序和后序。但是为了保证与广度优先遍历相照应，也写在这。代码也比较好理解，其实就是前序遍历。
+- 数据结构：栈
+- 父节点入栈，父节点出栈，先右子节点入栈，后左子节点入栈。递归遍历全部节点即可
+```bash
+public void depthOrderTraverse(TreeNode root) {
+		if (root == null) {
+			return;
+		}
+		LinkedList<TreeNode> stack = new LinkedList<>();
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			TreeNode node = stack.pop();
+			System.out.print(node.val+"  ");
+			if (node.right != null) {
+				stack.push(node.right);
+			}
+			if (node.left != null) {
+				stack.push(node.left);
+			}
+		}
+	}
+```
 
 
 
