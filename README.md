@@ -1,2 +1,2 @@
-# WebNote
-Study notes of WEB program from Internet
+# Study notes
+Study notes from Internet
