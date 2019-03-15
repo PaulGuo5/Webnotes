@@ -115,4 +115,86 @@ long findRootReferrerId(long actorId) {
 ### 递归实现
 - n!表示n个元素全排列的个数。
 - 需要消耗大量的栈空间，如果函数栈空间不够，那么就运行不下去了，而且函数调用开销也比较大。
-- 
+- 无重复数的实现(注意事项：循环将数组中所有元素与第一个元素交换时，再对子数组进行全排列后，需要将第一个元素交换回来，以供下一个元素与第一个元素交换。)
+```bash
+public class FullPermutation {
+	public static int sum=0;
+	private static void printArray(int array[]){
+		System.out.print("{");
+		for(int i = 0; i < array.length; i ++){
+			System.out.print(array[i]);
+		}
+		System.out.print("}");
+	}
+	private static void swap(int array[], int i, int j){
+		int temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	private static void permutation(int array[],int index){
+		if(index==array.length){//全排列结束
+	        ++sum;
+	        printArray(array);
+	    }
+	    else
+	        for(int i=index;i<array.length;++i){
+	            //将第i个元素交换至当前index下标处
+	            swap(array,index,i);
+
+	            //以递归的方式对剩下元素进行全排列
+	            permutation(array,index+1);
+
+	            //将第i个元素交换回原处
+	            swap(array,index,i);
+	        }
+	}
+	public static void main(String args[]){
+		int array[] = {1,2,3};
+		permutation(array,0);
+		System.out.print(sum);
+	}
+	
+}
+```
+- 有重复数的实现（去重的全排列就是从第一个数字起每个数分别与它后面非重复出现的数字交换。）
+```bash
+private static boolean isSwap(int array[],int index){
+        for(int i=index+1;i<array.length;++i)
+            if(array[index]==array[i])
+                return false;
+        return true;
+	}
+
+private static void permutation(int array[],int index){
+		if(index==array.length){//全排列结束
+	        ++sum;
+	        printArray(array);
+	    }
+	    else
+	        for(int i=index;i<array.length;++i){
+	        	if(isSwap(array,i)){
+		            //将第i个元素交换至当前index下标处
+		            swap(array,index,i);
+	
+		            //以递归的方式对剩下元素进行全排列
+		            permutation(array,index+1);
+	
+		            //将第i个元素交换回原处
+		            swap(array,index,i);
+	        	}
+	        }
+	}
+```
+
+### 非递归的实现
+- 全排列的非递归实现需要用到元素排列后的字典序。所谓的字典序就是按照元素的大小对形成排列进行排序。
+- 利用字典序来生成全排列的算法思想是：将集合A中的元素的排列，与某种顺序建立一一映射的关系，按照这种顺序，将集合的所有排列全部输出。这种顺序需要保证，既可以输出全部的排列，又不能重复输出某种排列。字典序就是用此种思想输出全排列的一种方式。
+- 先排序，再由后向前找第一个替换点，然后由向后向前找第一个比替换点所在元素大的数与替换点交换，最后颠倒替换点后的所有数据。
+- [代码1](https://blog.csdn.net/k346k346/article/details/51154786)
+- [代码2](https://blog.csdn.net/napoay/article/details/79879529)
+
+
+
+
+
+
