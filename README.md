@@ -11,4 +11,4 @@ Study notes from Internet
 - javascript.md
 
 ## Operating system
-- [operatingsystem.md](https://raw.githubusercontent.com/PaulGuo5/Webnotes/master/operatingsystem.md)
+- [operatingsystem.md](https://github.com/PaulGuo5/Webnotes/blob/master/operaingsystem.md)
