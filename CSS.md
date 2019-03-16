@@ -123,3 +123,30 @@
   align-self: auto | flex-start | flex-end | center | baseline | stretch;
 }
 ```
+
+
+
+
+## em
+>  [参考](https://www.w3cplus.com/css/px-to-em)
+
+- 浏览器的默认字体大小是16px
+- 如果元素自身没有设置字体大小，那么元素自身上的所有属性值如“border、width、height、padding、margin、line-height”等值，我们都可以按下面的公式来计算
+```bash
+1 ÷ 父元素的font-size × 需要转换的像素值 = em值
+```
+- 这一种千万要慢慢理解，不然很容易与第二点混了。如果元素设置了字体大小，那么字体大小的转换依旧按第二条公式计算，也就是下面的：
+```bash
+1 ÷ 父元素的font-size × 需要转换的像素值 = em值
+```
+- 那么元素设置了字体大小，此元素的其他属性，如“border、width、height、padding、margin、line-height”计算就需要按照下面的公式来计算：
+```bash
+1 ÷ 元素自身的font-size × 需要转换的像素值 = em值
+```
+
+## rem
+> [参考1](https://www.w3cplus.com/css3/define-font-size-with-css3-rem)
+> [参考2](https://zhuanlan.zhihu.com/p/28915418)
+- Rem是相对于根元素<html>，这样就意味着，我们只需要在根元素确定一个参考值，在根元素中设置多大的字体，这完全可以根据您自己的需要。
+- 为了简化font-size的换算，我们在根元素html中加入font-size: 62.5%;
+> html {font-size: 62.5%;  } /*  公式16px*62.5%=10px  */ 
