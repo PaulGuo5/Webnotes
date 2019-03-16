@@ -762,7 +762,6 @@ public class CountSort {
 然后基于某种映射函数 ，将待排序列的关键字k映射到第i个桶中(即桶数组B的下标 i) ，那么该关键字k就作为B[i]中的元素(每个桶B[i]都是一组大小为N/M的序列)。接着对每个桶B[i]中的所有元素进行比较排序(可以使用快排)。然后依次枚举输出B[0]….B[M]中的全部内容即是一个有序序列。
 bindex=f(key)   其中，bindex 为桶数组B的下标(即第bindex个桶), k为待排序列的关键字。桶排序之所以能够高效，其关键在于这个映射函数，它必须做到：如果关键字k1<k2，那么f(k1)<=f(k2)。也就是说B(i)中的最小数据都要大于B(i-1)中最大数据。很显然，映射函数的确定与数据本身的特点有很大的关系。
 ```
-
 ```bash
 public class BucketSort {
 
@@ -811,6 +810,96 @@ public class BucketSort {
 ```
 
 
+## 基数排序
+- 基数排序又是一种和前面排序方式不同的排序方式，基数排序不需要进行记录关键字之间的比较。
+- 基数排序是一种借助多关键字排序思想对单逻辑关键字进行排序的方法。
+- 所谓的多关键字排序就是有多个优先级不同的关键字。
+- 比如说成绩的排序，如果两个人总分相同，则语文高的排在前面，语文成绩也相同则数学高的排在前面。
+-如果对数字进行排序，那么个位、十位、百位就是不同优先级的关键字，如果要进行升序排序，那么个位、十位、百位优先级一次增加。
+- 基数排序是通过多次的收分配和收集来实现的，关键字优先级低的先进行分配和收集。
+- 时间复杂度O(N*M);最坏时间复杂度O(N*M);空间复杂度O(M)。
+
+```bash
+public class RadixSort {
+
+    public static void radixSort(int[] arr) {
+        if(arr == null && arr.length == 0)
+            return ;
+
+        int maxBit = getMaxBit(arr);
+
+        for(int i=1; i<=maxBit; i++) {
+
+            List<List<Integer>> buf = distribute(arr, i); //分配
+            collecte(arr, buf); //收集
+        }
+
+    }
+
+    /**
+     * 分配
+     * @param arr 待分配数组
+     * @param iBit 要分配第几位
+     * @return
+     */
+    public static List<List<Integer>> distribute(int[] arr, int iBit) {
+        List<List<Integer>> buf = new ArrayList<List<Integer>>();
+        for(int j=0; j<10; j++) {
+            buf.add(new LinkedList<Integer>());
+        }
+        for(int i=0; i<arr.length; i++) {
+            buf.get(getNBit(arr[i], iBit)).add(arr[i]);
+        }
+        return buf;
+    }
+
+    /**
+     * 收集
+     * @param arr 把分配的数据收集到arr中
+     * @param buf 
+     */
+    public static void collecte(int[] arr, List<List<Integer>> buf) {
+        int k = 0;
+        for(List<Integer> bucket : buf) {
+            for(int ele : bucket) {
+                arr[k++] = ele;
+            }
+        }
+
+    }
+
+    /**
+     * 获取最大位数
+     * @param x
+     * @return
+     */
+    public static int getMaxBit(int[] arr) {
+        int max = Integer.MIN_VALUE;
+        for(int ele : arr) {
+            int len = (ele+"").length();
+            if(len > max)
+                max = len;
+        }
+        return max;
+    }
+
+    /**
+     * 获取x的第n位，如果没有则为0.
+     * @param x
+     * @param n
+     * @return
+     */
+    public static int getNBit(int x, int n) {
+
+        String sx = x + "";
+        if(sx.length() < n)
+            return 0;
+        else
+            return sx.charAt(sx.length()-n) - '0';
+    }
+
+}
+```
 
 
 
