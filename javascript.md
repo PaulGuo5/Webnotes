@@ -212,7 +212,7 @@ input.onchange = function(e) {
 
 
 ## HTTP 的重定向
->     [参考](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Redirections)
+>    [参考](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Redirections)
 
 - URL 重定向，也称为 URL 转发，是一种当实际资源，如单个页面、表单或者整个 Web 应用被迁移到新的 URL 下的时候，保持（原有）链接可用的技术。
 - 该操作可以应用于多种多样的目标：网站维护期间的临时跳转，网站架构改变后为了保持外部链接继续可用的永久重定向，上传文件时的表示进度的页面，等等。
@@ -263,5 +263,5 @@ window.location = "http://www.example.com/";
 
 
 ## 闭包
->     [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
+>    [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
 - 闭包是函数和声明该函数的词法环境的组合。
