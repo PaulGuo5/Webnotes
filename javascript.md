@@ -417,8 +417,9 @@ console.log(Counter2.value()); /* logs 0 */
 - prototype：显示原型，所有的函数（构造函数？）都有，是后天赋予的。
 - 原型链查找：调用一个对象的属性或方法，一旦这个对象没有，就去这个对象的__proto__中查找，对象的__proto__指向自己的构造函数的prototype属性。
 - JavaScript中每个对象都有一个内置属性prototype，ES5之前没有方法可以得到这个属性，大多数浏览器都支持通过__proto__来访问。
-
-
+- 
+>[参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+- 基于原型链的继承：JavaScript 对象是动态的属性“包”（指其自己的属性）。JavaScript 对象有一个指向一个原型对象的链。当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
 
 
 ## 网站的性能优化
@@ -696,9 +697,15 @@ console.log(p.m()); // 5
 ## HTTP状态码
 - 200：请求成功
 - 301：资源（网页等）被永久转移到其他URL，浏览器会将网址和内容的抓取都转移到新的网址中；302为暂时性转移，浏览器会抓取新的网址的内容，但地址仍旧是旧网址的。
-- 304：Not Modified
+- 304：Not Modified，客户端发送附带条件的请求时（if-matched,if-modified-since,if-none-match,if-range,if-unmodified-since任一个）服务器端允许请求访问资源，但因发生请求未满足条件的情况后，直接返回304Modified（服务器端资源未改变，可直接使用客户端未过期的缓存）。304状态码返回时，不包含任何响应的主体部分。304虽然被划分在3xx类别中，但是和重定向没有关系。
 - 404：请求的资源（网页等）不存在
 - 500：内部服务器错误
+
+> [参考](https://blog.csdn.net/wangjun5159/article/details/51239960)了新u
+- 301 表示永久重定向（301 moved permanently），表示请求的资源分配rl，以后应使用新url。
+- 302 表示临时性重定向（302 found），请求的资源临时分配了新url，本次请求暂且使用新url。
+- 303 表示请求的资源路径发生改变，使用GET方法请求新url。她与302的功能一样，但是明确指出使用GET方法请求新url。
+
 
 
 
@@ -813,7 +820,13 @@ new RegExp('www\.vip\.com',"gi")
 - Ajax是异步JavaScript和XML，用于在Web页面中实现异步数据交互。
 - 通过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
 - 传统的网页（不使用 Ajax）如果需要更新内容，必须重载整个网页页面。
-
+> [参考](https://blog.csdn.net/sinat_35861727/article/details/78809986)
+- 一个完整的AJAX请求包括五个步骤:
+1. 创建XMLHTTPRequest对象
+2. 使用open方法创建http请求,并设置请求地址
+3. 设置发送的数据，开始和服务器端交互
+4. 注册事件
+5. 获取响应并更新界面
 
 
 
@@ -832,4 +845,215 @@ new RegExp('www\.vip\.com',"gi")
 
 
 
-## 
+## 用js数组实现数据结构-堆栈和队列
+> [参考](https://blog.csdn.net/gdut_2012/article/details/25010863)
+- 堆栈
+```bash
+
+function Stack(){
+    //存储元素数组
+    var aElement = new Array();
+    /*
+    * @brief: 元素入栈
+    * @param: 入栈元素列表
+    * @return: 堆栈元素个数
+    * @remark: 1.Push方法参数可以多个
+    *    2.参数为空时返回-1
+    */
+    Stack.prototype.Push = function(vElement){
+      //arguments对象是所有（非箭头）函数中都可用的局部变量。你可以使用arguments对象在函数中引用函数的参数。
+      //此对象包含传递给函数的每个参数，第一个参数在索引0处。
+        if (arguments.length == 0)
+            return - 1;
+        //元素入栈
+        for (var i = 0; i < arguments.length; i++){
+            aElement.push(arguments[i]);
+        }
+        return aElement.length;
+    }
+    /*
+    * @brief: 元素出栈
+    * @return: vElement
+    * @remark: 当堆栈元素为空时,返回null
+    */
+    Stack.prototype.Pop = function(){
+        if (aElement.length == 0)
+            return null;
+        else
+            return aElement.pop();
+    }
+    /*
+    * @brief: 获取堆栈元素个数
+    * @return: 元素个数
+    */
+    Stack.prototype.GetSize = function(){
+        return aElement.length;
+    }
+    /*
+    * @brief: 返回栈顶元素值
+    * @return: vElement
+    * @remark: 若堆栈为空则返回null
+    */
+    Stack.prototype.GetTop = function(){
+        if (aElement.length == 0)
+            return null;
+        else
+            return aElement[aElement.length - 1];
+    }
+    /*
+    * @brief: 将堆栈置空  
+    */
+    Stack.prototype.MakeEmpty = function(){
+        aElement.length = 0;
+    }
+    /*
+    * @brief: 判断堆栈是否为空
+    * @return: 堆栈为空返回true,否则返回false
+    */
+    Stack.prototype.IsEmpty = function(){
+        if (aElement.length == 0)
+            return true;
+        else
+            return false;
+    }
+    /*
+    * @brief: 将堆栈元素转化为字符串
+    * @return: 堆栈元素字符串
+    */
+    Stack.prototype.toString = function(){
+        var sResult = (aElement.reverse()).toString();
+        aElement.reverse()
+        return sResult;
+    }
+}
+```
+
+- 队列
+```bash
+function Queue(){
+    //存储元素数组
+    var aElement = new Array();
+    /*
+    * @brief: 元素入队
+    * @param: vElement元素列表
+    * @return: 返回当前队列元素个数
+    * @remark: 1.EnQueue方法参数可以多个
+    *    2.参数为空时返回-1
+    */
+    Queue.prototype.EnQueue = function(vElement){
+        if (arguments.length == 0)
+            return - 1;
+        //元素入队
+        for (var i = 0; i < arguments.length; i++){
+            aElement.push(arguments[i]);
+        }
+        return aElement.length;
+    }
+    /*
+    * @brief: 元素出队
+    * @return: vElement
+    * @remark: 当队列元素为空时,返回null
+    */
+    Queue.prototype.DeQueue = function(){
+        if (aElement.length == 0)
+            return null;
+        else
+            return aElement.shift();
+ 
+    }
+    /*
+    * @brief: 获取队列元素个数
+    * @return: 元素个数
+    */
+    Queue.prototype.GetSize = function(){
+        return aElement.length;
+    }
+    /*
+    * @brief: 返回队头素值
+    * @return: vElement
+    * @remark: 若队列为空则返回null
+    */
+    Queue.prototype.GetHead = function(){
+        if (aElement.length == 0)
+            return null;
+        else
+            return aElement[0];
+    }
+    /*
+    * @brief: 返回队尾素值
+    * @return: vElement
+    * @remark: 若队列为空则返回null
+    */
+    Queue.prototype.GetEnd = function(){
+        if (aElement.length == 0)
+            return null;
+        else
+            return aElement[aElement.length - 1];
+    }
+    /*
+    * @brief: 将队列置空  
+    */
+    Queue.prototype.MakeEmpty = function(){
+        aElement.length = 0;
+    }
+    /*
+    * @brief: 判断队列是否为空
+    * @return: 队列为空返回true,否则返回false
+    */
+    Queue.prototype.IsEmpty = function(){
+        if (aElement.length == 0)
+            return true;
+        else
+            return false;
+    }
+    /*
+    * @brief: 将队列元素转化为字符串
+    * @return: 队列元素字符串
+    */
+    Queue.prototype.toString = function(){
+        var sResult = (aElement.reverse()).toString();
+        aElement.reverse()
+        return sResult;
+    }
+}
+```
+- 测试：
+```bash
+var oStack = new Stack();
+oStack.Push("abc", "123", 890);
+console.log(oStack.toString());
+oStack.Push("qq");
+console.log(oStack.toString());
+//  alert(oStack.GetSize());
+//  alert(oStack.Pop());
+//  alert(oStack.GetTop());
+//  oStack.MakeEmpty();
+//  alert(oStack.GetSize());
+//  alert(oStack.toString());
+delete oStack;
+var oQueue = new Queue();
+oQueue.EnQueue("bbs", "fans", "bruce");
+console.log(oQueue.toString());
+oQueue.EnQueue(23423);
+console.log(oQueue.toString());
+//  alert(oQueue.DeQueue());
+//  alert(oQueue.GetSize());
+//  alert(oQueue.GetHead());
+//  alert(oQueue.GetEnd());
+//  oQueue.MakeEmpty();
+//  alert(oQueue.IsEmpty());
+//  alert(oQueue.toString());
+delete oQueue;
+```
+
+
+## 缓存
+> [参考](https://heyingye.github.io/2018/04/16/%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/)
+- 根据是否需要向服务器重新发起HTTP请求将缓存过程分为两个部分，分别是强制缓存和协商缓存 。
+- 强制缓存就是向浏览器缓存查找该请求结果，并根据该结果的缓存规则来决定是否使用该缓存结果的过程，强制缓存的情况主要有三种(暂不分析协商缓存过程)，如下：
+1. 不存在该缓存结果和缓存标识，强制缓存失效，则直接向服务器发起请求（跟第一次发起请求一致）
+2. 存在该缓存结果和缓存标识，但该结果已失效，强制缓存失效，则使用协商缓存(暂不分析)
+3. 存在该缓存结果和缓存标识，且该结果尚未失效，强制缓存生效，直接返回该结果
+- 协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况：
+1. 协商缓存生效，返回304
+2. 协商缓存失效，返回200和请求结果结果
